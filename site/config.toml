@@ -8,8 +8,8 @@ paginate = 10
 [params]
   defaultTheme = "dark"
   enableThemeToggle = true
-  homeSubtitle = "IT Manager | System Administration | Automation"
-  description = "Personal site of Nir Li, IT Manager and Sysadmin."
+  homeSubtitle = "Tech Savy | System Administration | Automation"
+  description = "Personal site of Nir Li, IT Enthusiast and Sysadmin."
   aboutMe = """
 Experienced IT Manager with a strong background in system administration, virtualization (Unraid, Proxmox, Hyper-V), and on-prem/cloud infrastructure (Azure, OCI). Skilled in managing servers, troubleshooting complex issues, and automating routine tasks. Adept at maintaining reliable, secure, and efficient IT environments across Windows and Linux systems. Passionate about homelab projects, self-hosting, and streamlining business operations through technology.
 """
