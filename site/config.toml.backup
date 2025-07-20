@@ -1,0 +1,43 @@
+baseURL = 'http://192.168.1.228:1313/'
+languageCode = 'en-us'
+title = 'Nir Livshin'
+theme = "hello-friend-ng"
+paginate = 10
+
+
+[params]
+
+  defaultTheme = "dark"
+  enableThemeToggle = true
+  homeSubtitle = "Tech Savy | System Administration | Automation"
+  description = "Personal site of Nir Li, IT Enthusiast and Sysadmin."
+  aboutMe = """
+Experienced IT Manager with a strong background in system administration, virtualization (Unraid, Proxmox, Hyper-V), and on-prem/cloud infrastructure (Azure, OCI). Skilled in managing servers, troubleshooting complex issues, and automating routine tasks. Adept at maintaining reliable, secure, and efficient IT environments across Windows and Linux systems. Passionate about homelab projects, self-hosting, and streamlining business operations through technology.
+"""
+
+
+  # Your avatar (optional, put the file in /static/images/avatar.jpg for example)
+  # avatarURL = "/images/avatar.jpg"
+
+  # Social icons (show in the sidebar)
+  [[params.social]]
+    name = "github"
+    url = "https://github.com/nirli-439"
+  [[params.social]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/nir-livshin-8442b980/"
+  [[params.matomo]]
+    url   = "http://192.168.1.228:8084/"   # include trailing slash
+    siteId = "1"                               # your Matomo Site ID
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 2

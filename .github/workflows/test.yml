@@ -1,0 +1,36 @@
+name: Test Hugo Site
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Test Docker build
+      run: |
+        docker-compose up --build -d
+        sleep 5
+        curl -f http://localhost:1313 || exit 1
+        docker-compose down
+
+    - name: Test Hugo build
+      run: |
+        docker run --rm -v $PWD/site:/src klakegg/hugo:ext
+        
+    - name: Check for broken links (optional)
+      run: |
+        docker run --rm -v $PWD/site/public:/public 18fgsa/html-proofer /public --check-html --check-opengraph --report-missing-names --log-level :debug --assume-extension || true
+      continue-on-error: true

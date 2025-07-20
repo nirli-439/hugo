@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  hugo:
+    image: klakegg/hugo:ext
+    container_name: hugo_site
+    volumes:
+      - ./site:/src
+    ports:
+      - "1313:1313"
+    command: server --bind 0.0.0.0 

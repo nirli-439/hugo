@@ -1,0 +1,66 @@
+name: Deploy Hugo Site
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+        fetch-depth: 0
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+
+    - name: Setup Node.js (if theme uses npm)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'site/themes/*/package-lock.json'
+      continue-on-error: true
+
+    - name: Install npm dependencies (if any)
+      run: |
+        if [ -f site/themes/*/package.json ]; then
+          cd site/themes/*/
+          npm install
+        fi
+      continue-on-error: true
+
+    - name: Build Hugo site
+      run: |
+        cd site
+        hugo --minify
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site/public
+        publish_branch: gh-pages
+        cname: # Add your custom domain here if you have one
+
+    - name: Upload build artifacts
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: hugo-site-${{ github.sha }}
+        path: site/public/
+        retention-days: 7
